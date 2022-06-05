@@ -70,5 +70,5 @@ jobs:
         with:
           azcliversion: 2.30.0 # Optional
           inlineScript: |
-            az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "SERVICEBUS_CONNECTION_STRING=$SERVICEBUS_CS"
+            az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "SERVICEBUS_CONNECTION_STRING=$SERVICEBUS_CONNECTION_STRING"
             az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "QUEUE_NAME=$QUEUE_NAME"
