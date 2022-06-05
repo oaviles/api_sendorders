@@ -80,7 +80,11 @@ jobs:
     if: ${{ success() }}
     needs: update-functionapp-settings
     runs-on: windows-latest
-    environment: PoC
+    environment:
+      name: PoC
+      url: 'https://apisendorders.azurewebsites.net/api/sentMessageToAKS'
+
+
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@master
