@@ -4,6 +4,8 @@ on: workflow_dispatch
 
 env:
   AZURE_RG: ${{ secrets.AZURE_RG }}
+  QUEUE_NAME: ${{ secrets.QUEUE_NAME}}
+  SERVICEBUS_CONNECTION_STRING: ${{ secrets.SERVICEBUS_CS}}
 
 jobs:
 
@@ -48,3 +50,25 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./IaC/main.bicep
         parameters: ./IaC/azuredeploy.parameters.json
+
+
+  update-functionapp-settings:
+    if: ${{ success() }}
+    needs: deploy-bicep-template
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0 # Optional
+          inlineScript: |
+            az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "SERVICEBUS_CONNECTION_STRING=$SERVICEBUS_CS"
+            az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "QUEUE_NAME=$QUEUE_NAME"
