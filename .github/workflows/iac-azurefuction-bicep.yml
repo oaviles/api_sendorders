@@ -1,7 +1,34 @@
+name: Deploy Azure Function Service (PoC)
+
 on: workflow_dispatch
-name: Deploy Azure Function Service (IaC)
+
+env:
+  AZURE_RG: ${{ secrets.AZURE_RG }}
+
 jobs:
-  arm-template-deploy:
+
+  create-azure-rg:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0 # Optional
+          inlineScript: |
+            az group create --location eastus -n $AZURE_RG
+
+
+  deploy-bicep-template:
+    if: ${{ success() }}
+    needs: create-azure-rg
     runs-on: ubuntu-latest
     steps:
 
@@ -13,8 +40,8 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Deploy ARM template
-    - name: Run ARM deploy
+      # Deploy Bicep template
+    - name: Run Bicep deploy
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
