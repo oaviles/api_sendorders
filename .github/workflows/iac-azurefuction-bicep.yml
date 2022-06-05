@@ -6,6 +6,9 @@ env:
   AZURE_RG: ${{ secrets.AZURE_RG }}
   QUEUE_NAME: ${{ secrets.QUEUE_NAME}}
   SERVICEBUS_CONNECTION_STRING: ${{ secrets.SERVICEBUS_CS}}
+  AZURE_FUNCTIONAPP_NAME: apisendorders  # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '10.x' 
 
 jobs:
 
@@ -70,5 +73,35 @@ jobs:
         with:
           azcliversion: 2.30.0 # Optional
           inlineScript: |
-            az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "SERVICEBUS_CONNECTION_STRING=$SERVICEBUS_CONNECTION_STRING"
-            az functionapp config appsettings set --name apisendorders --resource-group $AZURE_RG --settings "QUEUE_NAME=$QUEUE_NAME"
+            az functionapp config appsettings set --name $AZURE_FUNCTIONAPP_NAME --resource-group $AZURE_RG --settings "SERVICEBUS_CONNECTION_STRING=$SERVICEBUS_CONNECTION_STRING"
+            az functionapp config appsettings set --name $AZURE_FUNCTIONAPP_NAME --resource-group $AZURE_RG --settings "QUEUE_NAME=$QUEUE_NAME"
+  
+  build-and-deploy-api:
+    if: ${{ success() }}
+    needs: update-functionapp-settings
+    runs-on: ubuntu-latest
+    environment: PoC
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@master
+
+    - name: Setup Node ${{ env.NODE_VERSION }} Environment
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: 'Resolve Project Dependencies Using Npm'
+      shell: bash
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        npm install
+        npm run build --if-present
+        npm run test --if-present
+        popd
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
