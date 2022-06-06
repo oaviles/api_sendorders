@@ -15,3 +15,6 @@ Reference Pattern and Architecture:
 - A Service Principal with Contributor role at subscription scope. This is the identity that will be used to access the Azure resources from GitHub Action. If you don't have a Service Principal, create one by following [these steps](https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure).
 - Deploy Azure Service Bus using GitHub Action called ["Depoy Azure Service Bus (Bicep)"](https://github.com/oaviles/keda-example/actions/workflows/deploy-servicebus-bicep.yml)
 - Get Connection String from Azure Service Bus Queue "Orders"
+
+#### Backend order processing app (Optional)
+Optionally you can deploy backend order process app to process orders, [repo reference here](https://github.com/oaviles/keda-example.git).
