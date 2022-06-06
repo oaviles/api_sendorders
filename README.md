@@ -2,11 +2,10 @@
 
 This is a sample project for Cloud Application Developer using Azure Cloud Platform and GitHub to automate IaC and CI/CD suppported by Secure DevOps Practices. 
 
-Reference Pattern and Architecture: 
-[Asynchronous messaging options: ](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/messaging)[Competing Consumers Pattern]([https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/images/comp-con.png](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/messaging#load-balancing))
+Reference Pattern: [Asynchronous messaging options: ](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/messaging)[Competing Consumers Pattern]([https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/images/comp-con.png](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/messaging#load-balancing))
 ![](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/images/comp-con.png)
 
-[Serverless web application](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/serverless/web-app)
+Reference Architecture: [Serverless web application](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/serverless/web-app)
 ![](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/serverless/_images/serverless-web-app.png)
 
 ### Prerequisites to deploy this PoC
