@@ -8,7 +8,7 @@ env:
   SERVICEBUS_CONNECTION_STRING: ${{ secrets.SERVICEBUS_CS}}
   AZURE_FUNCTIONAPP_NAME: apisendorders  # set this to your application's name
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '10.x' 
+  NODE_VERSION: '14.x' 
 
 jobs:
 
