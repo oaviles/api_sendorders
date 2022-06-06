@@ -17,4 +17,4 @@ Reference Pattern and Architecture:
 - Get Connection String from Azure Service Bus Queue "Orders"
 
 #### Backend order processing app (Optional)
-Optionally you can deploy backend order process app to process orders, [repo reference here](https://github.com/oaviles/keda-example.git).
+Optionally you can deploy backend app based on containers and deployed on Azure Kubernetes Service to process orders, [repo reference here](https://github.com/oaviles/keda-example.git).
