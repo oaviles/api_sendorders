@@ -1,6 +1,6 @@
 # PoC: Serverless API
 
-This is a sample project for Cloud Application Developer using Azure Cloud Platform and GitHub to automate IaC and CI/CD suppported by Secure DevOps Practices. 
+This is a sample project for Cloud Application Developer using Azure Cloud Platform and GitHub to automate IaC and CI/CD supported by Secure DevOps Practices. 
 
 Reference Pattern: [Asynchronous messaging options: ](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/messaging)[Competing Consumers Pattern]([https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/images/comp-con.png](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/messaging#load-balancing))
 ![](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/images/comp-con.png)
